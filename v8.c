@@ -9,6 +9,8 @@
 #include <vdr/plugin.h>
 #include <v8.h>
 
+using namespace v8;
+
 static const char *VERSION = "0.0.1";
 static const char *DESCRIPTION = "Enter description for 'v8' plugin";
 static const char *MAINMENUENTRY = "V8";
