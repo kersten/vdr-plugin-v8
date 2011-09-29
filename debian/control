@@ -1,0 +1,15 @@
+Source: vdr-plugin-mqtt
+Section: video
+Priority: extra
+Maintainer: Michael Eiler <michael@unknown>
+Build-Depends: debhelper, vdr-dev (>= 1.7.18), gettext, libmosquitto0-dev, libmosquittopp0-dev, libcxxtools-dev
+Standards-Version: 3.9.1
+Vcs-Svn: svn://svn.debian.org/pkg-vdr-dvb/vdr/vdr-plugin-mqtt/trunk/
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-vdr-dvb/vdr/vdr-plugin-mqtt/trunk/
+Homepage: <url://example.com>
+
+Package: vdr-plugin-mqtt
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${vdr:Depends}, libmosquitto0, libmosquittopp0, libcxxtools7
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
