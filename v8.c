@@ -165,4 +165,4 @@ cString cPluginV8::SVDRPCommand(const char *Command, const char *Option, int &Re
 	return NULL;
 }
 
-VDRPLUGINCREATOR( cPluginV8); // Don't touch this!
+VDRPLUGINCREATOR(cPluginV8); // Don't touch this!
