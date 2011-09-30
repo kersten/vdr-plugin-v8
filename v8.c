@@ -7,9 +7,9 @@
  */
 
 #include <vdr/plugin.h>
-#include <v8.h>
+//#include <v8.h>
 
-using namespace v8;
+//using namespace v8;
 
 static const char *VERSION = "0.0.1";
 static const char *DESCRIPTION = "VDR plugins written in JavaScript";
@@ -67,7 +67,7 @@ bool cPluginV8::ProcessArgs(int argc, char *argv[])
 
 bool cPluginV8::Initialize(void)
 {
-	// Create a stack-allocated handle scope.
+	/*// Create a stack-allocated handle scope.
 	HandleScope handle_scope;
 
 	// Create a new context.
@@ -91,7 +91,7 @@ bool cPluginV8::Initialize(void)
 
 	// Convert the result to an ASCII string and print it.
 	String::AsciiValue ascii(result);
-	printf("%s\n", *ascii);
+	printf("%s\n", *ascii);*/
 	return true;
 }
 

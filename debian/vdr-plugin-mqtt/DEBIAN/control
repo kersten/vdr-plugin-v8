@@ -1,0 +1,11 @@
+Package: vdr-plugin-mqtt
+Version: 0.0.3-2
+Architecture: i386
+Maintainer: Michael Eiler <michael@unknown>
+Installed-Size: 276
+Depends: libc6 (>= 2.4), libcxxtools7, libgcc1 (>= 1:4.1.1), libmosquitto0 (>= 0.9), libmosquittopp0 (>= 0.9), libstdc++6 (>= 4.3), vdr-abi-1.7.21-yavdr0
+Section: video
+Priority: extra
+Homepage: <url://example.com>
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

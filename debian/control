@@ -1,0 +1,13 @@
+Source: vdr-plugin-v8
+Section: engine
+Priority: optional
+Maintainer: Kersten Burkhardt <kerstenk@gmail.com>
+Build-Depends: debhelper, vdr-dev (>= 1.7.18), libv8-dev
+Standards-Version: 3.9.1
+Homepage: <url://example.com>
+
+Package: vdr-plugin-v8
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${vdr:Depends}, libv8-3.1.8.22
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
