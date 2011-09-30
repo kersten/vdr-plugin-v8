@@ -12,7 +12,7 @@
 using namespace v8;
 
 static const char *VERSION = "0.0.1";
-static const char *DESCRIPTION = "Enter description for 'v8' plugin";
+static const char *DESCRIPTION = "VDR plugins written in JavaScript";
 static const char *MAINMENUENTRY = "V8";
 
 class cPluginV8 : public cPlugin {
