@@ -1,5 +1,5 @@
 Source: vdr-plugin-v8
-Section: engine
+Section: video
 Priority: extra
 Maintainer: Kersten Burkhardt <kerstenk@gmail.com>
 Build-Depends: debhelper, vdr-dev (>= 1.7.18), libv8-dev
