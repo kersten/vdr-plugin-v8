@@ -10,6 +10,6 @@ Homepage: <url://example.com>
 
 Package: vdr-plugin-v8
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${vdr:Depends}, libv8-dev
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${vdr:Depends}, libv8
 Description: <insert up to 60 chars description>
  <insert long description, indented with spaces>
