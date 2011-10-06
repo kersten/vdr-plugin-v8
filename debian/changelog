@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 vdr-plugin-v8 (0.0.1) unstable; urgency=low
 
   * Initial release
   
  -- Michael Eiler <eiler.mike@gmail.com>  Mon, 04 Jul 2011 21:31:32 +0200
-=======
-vdr-plugin-v8 (0.0.1.nightly-0yavdr0) unstable; urgency=low
-
-  * Initial release
-  
- -- Kersten Burkhardt <kerstenk@gmail.com>  Thu, 30 Sep 2011 00:16:32 +0200
->>>>>>> 2aac7494bd5c4bc646550ef517af1bc222b408fc
 
