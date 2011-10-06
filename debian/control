@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Kersten Burkhardt <kerstenk@gmail.com>
 Build-Depends: debhelper, vdr-dev (>= 1.7.18), libv8-dev
 Standards-Version: 3.9.1
-Homepage: <url://example.com>
+Homepage: http://github.com/kersten/vdr-plugin-v8
 
 Package: vdr-plugin-v8
 Architecture: any

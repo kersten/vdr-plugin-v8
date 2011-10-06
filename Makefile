@@ -20,6 +20,8 @@ VERSION = $(shell grep 'static const char \*VERSION *=' $(PLUGIN).c | awk '{ pri
 CXX      ?= g++
 CXXFLAGS ?= -g -O3 -Wall -Woverloaded-virtual -Wno-parentheses
 
+LIBS     += -lv8 -lpthread
+
 ### The directory environment:
 
 VDRDIR = ../../..
@@ -99,7 +101,7 @@ i18n: $(I18Nmsgs) $(I18Npot)
 ### Targets:
 
 libvdr-$(PLUGIN).so: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $(OBJS) -o $@
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $(OBJS) -o $@ -Wl,--no-whole-archive $(LIBS)
 	@cp --remove-destination $@ $(LIBDIR)/$@.$(APIVERSION)
 
 dist: $(I18Npo) clean
