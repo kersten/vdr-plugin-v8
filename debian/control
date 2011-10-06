@@ -1,9 +1,19 @@
 Source: vdr-plugin-v8
+<<<<<<< HEAD
 Section: engine
 Priority: optional
 Maintainer: Kersten Burkhardt <kerstenk@gmail.com>
 Build-Depends: debhelper, vdr-dev (>= 1.7.18), libv8-dev
 Standards-Version: 3.9.1
+=======
+Section: video
+Priority: extra
+Maintainer: Kersten Burkhardt <kerstenk@gmail.com>
+Build-Depends: debhelper, vdr-dev (>= 1.7.18), libv8-dev
+Standards-Version: 3.9.1
+Vcs-Svn: svn://svn.debian.org/pkg-vdr-dvb/vdr/vdr-plugin-mqtt/trunk/
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-vdr-dvb/vdr/vdr-plugin-mqtt/trunk/
+>>>>>>> 2aac7494bd5c4bc646550ef517af1bc222b408fc
 Homepage: <url://example.com>
 
 Package: vdr-plugin-v8

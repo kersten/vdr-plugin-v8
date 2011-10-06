@@ -2,6 +2,7 @@
  * File:   main.cpp
  * Author: kersten
  *
+<<<<<<< HEAD
  * Created on 30. September 2011, 15:09
  */
 
@@ -39,6 +40,20 @@ int main() {
     // Convert the result to an ASCII string and print it.
     String::AsciiValue ascii(result);
     printf("%s\n", *ascii);
+=======
+ * Created on 30. September 2011, 19:37
+ */
+
+#include <cstdlib>
+#include <v8.h>
+
+using namespace std;
+using namespace v8;
+/*
+ * 
+ */
+int main(int argc, char** argv) {
+>>>>>>> 2aac7494bd5c4bc646550ef517af1bc222b408fc
     return 0;
 }
 
