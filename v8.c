@@ -8,6 +8,7 @@
 
 #include <vdr/plugin.h>
 #include <v8.h>
+#include <getopt.h>
 
 using namespace v8;
 
@@ -17,7 +18,7 @@ static const char *MAINMENUENTRY = "V8";
 
 class cPluginV8 : public cPlugin {
 private:
-	// Add any member variables or functions you may need here.
+        char* plugin_dir;
 public:
 	cPluginV8(void);
 	virtual ~cPluginV8();
@@ -61,8 +62,27 @@ const char *cPluginV8::CommandLineHelp(void)
 
 bool cPluginV8::ProcessArgs(int argc, char *argv[])
 {
-	// Implement command line argument processing here if applicable.
-	return true;
+    static struct option opts[] = {
+        { "plugin-dir", required_argument, NULL, 'p' },
+        { 0 }
+    };
+    
+     int optchar, optind = 0;
+    while ((optchar = getopt_long( argc, argv, "p:", opts, &optind)) != -1) {
+        switch ( optchar ) {
+        case 'p':
+            plugin_dir = optarg;
+            break;
+            
+        default:
+            return false;
+        }
+    }
+    
+    dsyslog("V8: Plugin dir: %s", plugin_dir);
+    
+    // Implement command line argument processing here if applicable.
+    return true;
 }
 
 // Extracts a C string from a V8 Utf8Value.
@@ -70,39 +90,53 @@ const char* ToCString(const v8::String::Utf8Value& value) {
     return *value ? *value : "<string conversion failed>";
 }
 
+Handle<Value> Print(const Arguments& args)
+{
+    bool first = true;
+    
+    for (int i = 0; i < args.Length(); i++) {
+        HandleScope handle_scope;
+        
+        if (first) {
+            first = false;
+        } else {
+            dsyslog(" ");
+        } 
+        
+        String::Utf8Value str(args[i]); dsyslog("V8: %s", *str);
+    }
+
+    return Undefined();
+}
+
 bool cPluginV8::Initialize(void)
 {
-    //HandleScope handle_scope;
-	// Create a stack-allocated handle scope.
-	HandleScope handle_scope;
-
-	// Create a new context.
-	Persistent<Context> context = Context::New();
-
-	// Enter the created context for compiling and
-	// running the hello world script.
-	Context::Scope context_scope(context);
-
-	// Create a string containing the JavaScript source code.
-	Handle<String> source = String::New("'Hello' + ', World!'");
-
-	// Compile the source code.
-	Handle<Script> script = Script::Compile(source);
-
-	// Run the script to get the result.
-	Handle<Value> result = script->Run();
-
-	// Dispose the persistent context.
-	context.Dispose();
-
-	// Convert the result to an ASCII string and print it.
-	String::Utf8Value ascii(result);
-        const char* cstr = ToCString(ascii);
-	/*printf("%s\n", *ascii);*/
-
-        dsyslog("v8 started %s", cstr);
+    HandleScope handle_scope;
     
-	return true;
+    Handle<ObjectTemplate> global = ObjectTemplate::New();
+    global->Set(String::New("dsyslog"), FunctionTemplate::New (Print));
+    
+    Persistent<Context> context = Context::New(NULL, global);
+    
+    Context::Scope context_scope(context);
+    
+    Handle<String> source = String::New("dsyslog('Hello' + ', World!')");
+    
+     // Compile the source code.
+    Handle<Script> script = Script::Compile(source);
+
+    // Run the script to get the result.
+    Handle<Value> result = script->Run();
+    
+    context.Dispose();
+
+    //// Convert the result to an ASCII string and print it.
+    //String::Utf8Value ascii(result);
+    //const char* cstr = ToCString(ascii);
+
+    //dsyslog("v8 started %s", cstr);
+    
+    return true;
 }
 
 bool cPluginV8::Start(void)
