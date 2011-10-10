@@ -65,10 +65,15 @@ bool cPluginV8::ProcessArgs(int argc, char *argv[])
 	return true;
 }
 
+// Extracts a C string from a V8 Utf8Value.
+const char* ToCString(const v8::String::Utf8Value& value) {
+    return *value ? *value : "<string conversion failed>";
+}
+
 bool cPluginV8::Initialize(void)
 {
     //HandleScope handle_scope;
-	/*// Create a stack-allocated handle scope.
+	// Create a stack-allocated handle scope.
 	HandleScope handle_scope;
 
 	// Create a new context.
@@ -91,10 +96,11 @@ bool cPluginV8::Initialize(void)
 	context.Dispose();
 
 	// Convert the result to an ASCII string and print it.
-	String::AsciiValue ascii(result);
-	printf("%s\n", *ascii);*/
+	String::Utf8Value ascii(result);
+        const char* cstr = ToCString(ascii);
+	/*printf("%s\n", *ascii);*/
 
-        dsyslog("v8 started");
+        dsyslog("v8 started %s", cstr);
     
 	return true;
 }

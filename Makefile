@@ -18,14 +18,13 @@ VERSION = $(shell grep 'static const char \*VERSION *=' $(PLUGIN).c | awk '{ pri
 ### The C++ compiler and options:
 
 CXX      ?= g++
-CXXFLAGS ?= -g -O3 -Wall -Woverloaded-virtual -Wno-parentheses
-
-LIBS     += -lv8 -lpthread
+CXXFLAGS ?= -g -O2 -Wall -Woverloaded-virtual -Wno-parentheses
+LDFLAGS	 += -lv8
 
 ### The directory environment:
 
-VDRDIR = ../../..
-LIBDIR = ../../lib
+VDRDIR = /usr/include/vdr
+LIBDIR = /usr/lib/vdr/plugins
 TMPDIR = /tmp
 
 ### Make sure that necessary options are included:
@@ -62,7 +61,7 @@ all: libvdr-$(PLUGIN).so i18n
 ### Implicit rules:
 
 %.o: %.c
-	$(CXX) $(CXXFLAGS) -c $(DEFINES) $(INCLUDES) $<
+	$(CXX) $(CXXFLAGS) -c $(DEFINES) $(INCLUDES) $< $(LIBS)
 
 ### Dependencies:
 
@@ -101,7 +100,7 @@ i18n: $(I18Nmsgs) $(I18Npot)
 ### Targets:
 
 libvdr-$(PLUGIN).so: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $(OBJS) -o $@ -Wl,--no-whole-archive $(LIBS)
+	$(CXX) $(CXXFLAGS) -shared $(OBJS) $(LDFLAGS) -o $@
 	@cp --remove-destination $@ $(LIBDIR)/$@.$(APIVERSION)
 
 dist: $(I18Npo) clean
