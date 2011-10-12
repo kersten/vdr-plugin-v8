@@ -9,6 +9,11 @@
 #include <vdr/plugin.h>
 #include <v8.h>
 #include <getopt.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <dirent.h>
+#include <errno.h>
+#include "Plugin.h"
 
 using namespace v8;
 
@@ -18,7 +23,7 @@ static const char *MAINMENUENTRY = "V8";
 
 class cPluginV8 : public cPlugin {
 private:
-        char* plugin_dir;
+        const char* plugin_dir;
 public:
 	cPluginV8(void);
 	virtual ~cPluginV8();
@@ -111,6 +116,61 @@ Handle<Value> Print(const Arguments& args)
 
 bool cPluginV8::Initialize(void)
 {
+    DIR *dp;
+    struct dirent *ep;
+    unsigned char isFolder =0x4;
+
+    dp = opendir(plugin_dir);
+    if (dp != NULL) {
+       while (ep = readdir (dp)) {
+           if (ep->d_name[0] == '.') {
+               continue;
+           }
+           
+           // check if is dir
+           if (ep->d_type == isFolder) {
+               dsyslog("V8: Found plugin dir: %s", ep->d_name);
+               
+               char index_file[strlen(plugin_dir) + strlen("//index.js") + strlen(ep->d_name)];
+               
+               strcpy(index_file, plugin_dir);
+               strcat(index_file, "/");
+               strcat(index_file, ep->d_name);
+               strcat(index_file, "/index.js");
+               
+               if (access(index_file, F_OK ) == 0) {
+                   dsyslog("V8: Found plugin: %s/index.js", ep->d_name);
+               } else {
+                   dsyslog("V8: Missing index.js file in plugin dir: %s", ep->d_name);
+               }
+           } else {
+               dsyslog("V8: Found plugin: %s", ep->d_name);
+               Plugin v8;
+               v8.init(ep->d_name);
+           }
+       }
+       
+       (void) closedir (dp);
+    } else {
+        switch (errno) {
+        case EACCES:
+            dsyslog("V8: Couldn't open the plugin directory (no write access): %s", strerror(errno));
+            break;
+        
+        case ENOENT:
+            dsyslog("V8: Couldn't open the plugin directory (file does not exist): %s", strerror(errno));
+            break;
+
+        case EROFS:
+            dsyslog("V8: Couldn't open the plugin directory (file is on a readonly medium): %s", strerror(errno));
+            break;
+            
+        default:
+            dsyslog("V8: Couldn't open the plugin directory (unknown error): %s", strerror(errno));
+            break;
+        }
+    }
+    
     HandleScope handle_scope;
     
     Handle<ObjectTemplate> global = ObjectTemplate::New();
