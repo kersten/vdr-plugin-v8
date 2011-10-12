@@ -13,7 +13,8 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <errno.h>
-#include "Plugin.h"
+
+#include "v8plugin.h"
 
 using namespace v8;
 
@@ -146,7 +147,7 @@ bool cPluginV8::Initialize(void)
            } else {
                dsyslog("V8: Found plugin: %s", ep->d_name);
                Plugin v8;
-               v8.init(ep->d_name);
+               v8.init("/usr/lib/vdr/plugins.v8/indes.js");
            }
        }
        
@@ -186,7 +187,8 @@ bool cPluginV8::Initialize(void)
     Handle<Script> script = Script::Compile(source);
 
     // Run the script to get the result.
-    Handle<Value> result = script->Run();
+    //Handle<Value> result = script->Run();
+    script->Run();
     
     context.Dispose();
 

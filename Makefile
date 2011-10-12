@@ -18,7 +18,7 @@ VERSION = $(shell grep 'static const char \*VERSION *=' $(PLUGIN).cpp | awk '{ p
 ### The C++ compiler and options:
 
 CXX      ?= g++
-CXXFLAGS ?= -g -O2 -Wall -Woverloaded-virtual -Wno-parentheses
+CXXFLAGS ?= -g -O2 -Wall
 LDFLAGS	 ?= -fPIC -g
 
 ### The directory environment:
@@ -29,7 +29,7 @@ TMPDIR = /tmp
 
 ### Make sure that necessary options are included:
 
-include $(VDRDIR)/Make.global
+-include $(VDRDIR)/Make.global
 
 ### Allow user defined options to overwrite defaults:
 
@@ -54,7 +54,7 @@ DEFINES += -D_GNU_SOURCE -DPLUGIN_NAME_I18N='"$(PLUGIN)"'
 
 ### The object files (add further files here):
 
-OBJS = $(PLUGIN).o Plugin.o
+OBJS = $(PLUGIN).o v8plugin.o
 
 ### The main target:
 
@@ -70,7 +70,7 @@ all: libvdr-$(PLUGIN).so i18n
 MAKEDEP = $(CXX) -MM -MG
 DEPFILE = .dependencies
 $(DEPFILE): Makefile
-	@$(MAKEDEP) $(DEFINES) $(INCLUDES) $(OBJS:%.o=%.cpp) > $@
+	@$(MAKEDEP) $(DEFINES) $(INCLUDES) $(Ogit add .BJS:%.o=%.cpp) > $@
 
 -include $(DEPFILE)
 
